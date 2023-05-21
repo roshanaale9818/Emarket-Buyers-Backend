@@ -7,7 +7,7 @@ const cors = require("cors");
 const app = express();
 
 var corsOptions = {
-  origin: "http://localhost:4200"
+  origin: "http://localhost:3000"
 };
 
 // use the cors body parser in express app 
@@ -35,6 +35,8 @@ require('./app/routes/user.routes')(app);
 require('./app/routes/translationshistory.routes')(app);
 require('./app/routes/task.routes')(app);
 
+
+// force true should be removed for production environment
 db.sequelize.sync({force:true}).then(()=>{
     console.log("Drop and Resync Db");
     initial(); // creates 3 rows in database
