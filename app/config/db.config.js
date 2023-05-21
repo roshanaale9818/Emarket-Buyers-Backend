@@ -2,7 +2,7 @@ module.exports = {
     HOST:"localhost",
     USER:"postgres",
     PASSWORD:"Padma9818@",
-    DB:"tododb",
+    DB:"emarket",
     dialect:"postgres",
     pool:{
         min:0,//min number of connection

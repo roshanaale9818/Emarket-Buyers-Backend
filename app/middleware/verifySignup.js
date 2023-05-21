@@ -1,8 +1,27 @@
 const db = require("../models");
+const isRequiredMessage = require("../util/validateRequest");
 const ROLES = db.ROLES;
 const User = db.user;
 
+
+
+
+verifyRequestHasEmailAndUsername = (req, res, next) => {
+
+ let {username,email}= req.body;
+ if (!username) {
+  res.send({ status: "error", message: isRequiredMessage('Username') });
+}
+if (!email) {
+  res.send({ status: "error", message: isRequiredMessage('Email') });
+}
+next();
+
+};
+
+
 checkDuplicateUsernameOrEmail = (req, res, next) => {
+
   // Username
   User.findOne({
     where: {
@@ -56,7 +75,8 @@ checkRolesExisted = (req, res, next) => {
 
 const verifySignUp = {
   checkDuplicateUsernameOrEmail: checkDuplicateUsernameOrEmail,
-  checkRolesExisted: checkRolesExisted
+  checkRolesExisted: checkRolesExisted,
+  verifyRequestHasEmailAndUsername:verifyRequestHasEmailAndUsername
 };
 
 module.exports = verifySignUp;

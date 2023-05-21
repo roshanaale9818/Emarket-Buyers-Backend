@@ -9,7 +9,7 @@ verifyToken = (req, res, next) => {
   if (!token) {
     return res.status(403).send({
         status:"error",
-      message: "No token provided!"
+        message: "No token provided!"
     });
   }
 

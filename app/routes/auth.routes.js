@@ -1,5 +1,6 @@
 const { verifySignUp } = require("../middleware");
 const controller = require("../controllers/auth.controller");
+const  apiVersionPrefix = require("../config/verison");
 
 module.exports = function(app) {
   app.use(function(req, res, next) {
@@ -11,13 +12,13 @@ module.exports = function(app) {
   });
 
   app.post(
-    "/api/auth/signup",
-    [
+    apiVersionPrefix+"auth/signup",
+    [verifySignUp.verifyRequestHasEmailAndUsername,
       verifySignUp.checkDuplicateUsernameOrEmail,
       verifySignUp.checkRolesExisted
     ],
     controller.signup
   );
 
-  app.post("/api/auth/signin", controller.signin);
+  app.post(apiVersionPrefix+"auth/signin", controller.signin);
 };
