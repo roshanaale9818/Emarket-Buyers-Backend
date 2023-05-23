@@ -28,14 +28,14 @@ db.task=require('../models/task.model')(sequelize,Sequelize);
 
 
 const OrderProductModal = require('../models/order_product.model');
-const ShopCartModal = require('../models/shopcart.model');
+const UserCart = require('./usercart.model');
 const OrderModal =  require('../models/order.model');
-const CartProduct = require('./cart-product.model');
+// const CartProduct = require('./cart-product.model');
 
 db.orderProduct = OrderProductModal(sequelize,Sequelize);
-db.shopcart=ShopCartModal(sequelize,Sequelize);
+db.usercart=UserCart(sequelize,Sequelize);
 db.order=OrderModal(sequelize,Sequelize);
-db.cartProduct = CartProduct(sequelize,Sequelize);
+// db.cartProduct = CartProduct(sequelize,Sequelize);
 
 
 

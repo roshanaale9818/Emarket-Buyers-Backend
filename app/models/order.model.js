@@ -3,7 +3,7 @@ module.exports = (sequelize, Sequelize) => {
         userId: {
             type: Sequelize.STRING
         },
-        total_price: {
+        totalPrice: {
             type: Sequelize.INTEGER,
             allowNull: false,
             validate: {
@@ -17,14 +17,14 @@ module.exports = (sequelize, Sequelize) => {
               notNull: { msg: "Status is required" },
             },
         },
-        shipping_address: {
+        shippingAddress: {
             type: Sequelize.STRING,
             allowNull: false,
             validate: {
               notNull: { msg: "Status is required" },
             },
         },
-        total_items: {
+        totalItems: {
             type: Sequelize.INTEGER,
             allowNull: false,
             validate: {

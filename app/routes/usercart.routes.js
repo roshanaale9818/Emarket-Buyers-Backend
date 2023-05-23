@@ -1,5 +1,5 @@
 const { authJwt } = require("../middleware");
-const _controller = require("../controllers/shopcart.controller");
+const _controller = require("../controllers/usercart.controller");
 const apiVersionPrefix = require("../config/verison");
 module.exports = function(app){
     app.use(function(req,res,next){
@@ -9,7 +9,7 @@ module.exports = function(app){
           );
           next();
     });
-    app.get(apiVersionPrefix+"cart/getcartitems",
+    app.post(apiVersionPrefix+"cart/getcartitems",
     [authJwt.verifyToken],_controller.getCartItems);
 
     app.post(apiVersionPrefix+"cart/addcartitems", [authJwt.verifyToken],_controller.createCart);

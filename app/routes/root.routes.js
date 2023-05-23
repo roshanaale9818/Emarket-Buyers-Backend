@@ -1,4 +1,6 @@
-const shopCartRoutes = require('../routes/shopcart.routes');
+const userCarts = require('./usercart.routes');
+const order = require('./order.routes');
 module.exports = function (app){
-    shopCartRoutes(app);
+    userCarts(app);
+    order(app);
 }

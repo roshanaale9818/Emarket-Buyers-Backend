@@ -1,16 +1,16 @@
 module.exports = (sequelize, Sequelize) => {
-    const ShopCart = sequelize.define("shopcarts", {
+    const UserCart = sequelize.define("usercarts", {
         userId: {
             type: Sequelize.STRING
         },
-        product_name: {
+        productName: {
             type: Sequelize.STRING,
             allowNull: false,
             validate: {
               notNull: { msg: "product name is required" },
             },
         },
-        product_id: {
+        productId: {
             type: Sequelize.STRING,
             allowNull: false,
             validate: {
@@ -31,10 +31,20 @@ module.exports = (sequelize, Sequelize) => {
               notNull: { msg: "Quantity is required" },
             },
         },
+        price: {
+            type: Sequelize.INTEGER,
+            allowNull: false,
+            validate: {
+              notNull: { msg: "Quantity is required" },
+            },
+        },
         description: {
             type: Sequelize.STRING
         },
+        imgUrl:{
+            type:Sequelize.STRING
+        }
     });
 
-    return ShopCart;
+    return UserCart;
 };
