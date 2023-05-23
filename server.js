@@ -1,14 +1,16 @@
 const express = require("express");
 const bodyParser = require("body-parser");
 const cors = require("cors");
+const CORS = require('./app/util/corsOptions');
 
 
 //create the app for rest api using express
 const app = express();
 
-var corsOptions = {
-  origin: "http://localhost:3000"
-};
+// var corsOptions = {
+//   origin: "http://localhost:3000"
+// };
+var corsOptions = [...CORS] 
 
 // use the cors body parser in express app 
 app.use(cors(corsOptions));
@@ -29,11 +31,15 @@ app.listen(PORT,()=>{
     console.log(`Server is running on port ${PORT}`)
 });
 const db = require('./app/models/index');
+
 const Role = db.role;
 require('./app/routes/auth.routes')(app);
 require('./app/routes/user.routes')(app);
 require('./app/routes/translationshistory.routes')(app);
 require('./app/routes/task.routes')(app);
+
+const rootRoute = require('./app/routes/root.routes');
+rootRoute(app);
 
 
 // force true should be removed for production environment

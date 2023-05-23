@@ -25,6 +25,27 @@ db.role = require('../models/role.model')(sequelize,Sequelize);
 db.translation = require('../models/translationhistory.model')(sequelize,Sequelize);
 db.task=require('../models/task.model')(sequelize,Sequelize);
 
+
+
+const OrderProductModal = require('../models/order_product.model');
+const ShopCartModal = require('../models/shopcart.model');
+const OrderModal =  require('../models/order.model');
+const CartProduct = require('./cart-product.model');
+
+db.orderProduct = OrderProductModal(sequelize,Sequelize);
+db.shopcart=ShopCartModal(sequelize,Sequelize);
+db.order=OrderModal(sequelize,Sequelize);
+db.cartProduct = CartProduct(sequelize,Sequelize);
+
+
+
+
+
+
+
+
+
+
 // through, foreignKey, otherKey, is for a new table user_roles as 
 // connection between users and roles table via their primary key as foreign keys.
 db.role.belongsToMany(db.user, {
