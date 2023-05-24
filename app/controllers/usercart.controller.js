@@ -5,13 +5,13 @@ const UserCart = db.usercart;
 
 // const Op = db.Sequelize.Op;
 exports.createCart = (req, res) => {
-  const { userId, productName,products, status, quantity, price, description, imgUrl } = req.body;
+  const { userId, productName,productId, status, quantity, price, description, imgUrl } = req.body;
 
 
   if (!userId) {
     return res.send({ status: "error", message: "User Id is required" });
   }
-  if (!products || products.length <0) {
+  if (!productId) {
     return res.send({ status: "error", message: "Product item is required" });
   }
 
@@ -106,7 +106,7 @@ exports.getCartItems = (req, res) => {
 
 
 // deletecartItem 
-exports.deleteCart = (req, res) => {
+exports.deleteCartItem = (req, res) => {
   User.findOne({
     where: {
       //userId is required
@@ -122,12 +122,14 @@ exports.deleteCart = (req, res) => {
         // console.log("REQUEST BODY",req.body)
         UserCart.destroy({
           where: {
-            id: req.body.UserCartId,
+            id: req.body.userCartId,
             userId: String(req.body.userId)
           }
-        }).then((UserCart) => {
+        }).then((usercart) => {
           // console.log("this is got in UserCart",UserCart);
           res.send({ status: "ok", message: "Successfully deleted." });
+        }).catch((err)=>{
+          res.send({status:'error',message:err.message})
         })
 
 

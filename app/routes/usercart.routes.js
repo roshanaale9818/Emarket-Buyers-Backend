@@ -13,6 +13,8 @@ module.exports = function(app){
     [authJwt.verifyToken],_controller.getCartItems);
 
     app.post(apiVersionPrefix+"cart/addcartitems", [authJwt.verifyToken],_controller.createCart);
+    app.post(apiVersionPrefix+"cart/deletecartitem", [authJwt.verifyToken],_controller.deleteCartItem);
+
     // app.post(apiVersionPrefix+"cart/addcartitems", [authJwt.verifyToken],_controller.createCart);
 
 

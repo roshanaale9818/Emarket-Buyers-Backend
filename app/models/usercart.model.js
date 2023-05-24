@@ -35,7 +35,7 @@ module.exports = (sequelize, Sequelize) => {
             type: Sequelize.INTEGER,
             allowNull: false,
             validate: {
-              notNull: { msg: "Quantity is required" },
+              notNull: { msg: "Price is required" },
             },
         },
         description: {
