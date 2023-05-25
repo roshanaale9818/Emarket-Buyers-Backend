@@ -26,7 +26,7 @@ exports.signup = (req, res) => {
     res.send({ status: "error", message: isRequiredMessage('Password') });
   }
 
-  let {contact,address,firstName,lastName}= req.body;
+  let {contact,address,firstName,lastName,state}= req.body;
   if(!contact || !address || !firstName ||!lastName){
     res.send({status:"error",message: isRequiredMessage('Contact, address, firstname, lastName')})
   }
@@ -45,7 +45,8 @@ else{
     contact:contact,
     address:address,
     firstName:firstName,
-    lastName:lastName
+    lastName:lastName,
+    state:state
   })
     .then(user => {
       if (req.body.isAdmin === "007") {
@@ -133,7 +134,8 @@ else{
             contact:user.contact,
             address: user.address,
             firstName:user.firstName,
-            lastName:user.lastName
+            lastName:user.lastName,
+            state:user.state
           }
 
         });
@@ -144,3 +146,30 @@ else{
     });
 }
 };
+
+exports.getUsers=(req,res)=>{
+  // let { username,password } = req.body;
+
+  User.findAll({
+    where: {
+      username: username
+    }
+  })
+    .then(users => {
+      // console.log("USER",user)
+      if (!users) {
+        // status(404)
+        return res.send({ status: "error", message: "No any users",data:users });
+      }
+      else{
+          return res.send({status:"ok",data:users});
+      }
+    
+    }
+      
+    )
+
+
+
+
+}

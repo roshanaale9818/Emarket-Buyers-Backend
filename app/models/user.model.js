@@ -37,6 +37,11 @@ module.exports = (sequelize, Sequelize) => {
     allowNull: false,
 
   },
+  state: {
+    type: Sequelize.STRING,
+    allowNull: true,
+
+  },
   });
 
 return User;
