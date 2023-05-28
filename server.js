@@ -43,9 +43,10 @@ rootRoute(app);
 
 
 // force true should be removed for production environment
-db.sequelize.sync({force:true}).then(()=>{
+// {force:true}
+db.sequelize.sync().then(()=>{
     console.log("Drop and Resync Db");
-    initial(); // creates 3 rows in database
+    // initial(); // creates 3 rows in database
 })
 const initial = ()=> {
     Role.create({

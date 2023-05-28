@@ -76,7 +76,7 @@ exports.getCartItems = (req, res) => {
   User.findOne({
     where: {
       //userId is required
-      id: req.body.userId || null
+      id: req.body.userId || null,
     }
   })
     .then(user => {
@@ -87,7 +87,8 @@ exports.getCartItems = (req, res) => {
 
         UserCart.findAll({
           where: {
-            userId: req.body.userId
+            userId: req.body.userId,
+            status:""||"pending"
           }
         }).then((UserCart) => {
           // console.log("this is got in UserCart",UserCart);

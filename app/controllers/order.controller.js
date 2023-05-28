@@ -3,6 +3,8 @@ const db = require("../models");
 const User = db.user;
 const Order = db.order;
 const OrderProduct = db.orderProduct;
+const UserCart = db.usercart;
+
 
 
 exports.createOrder = (req, res) => {
@@ -26,18 +28,22 @@ exports.createOrder = (req, res) => {
         return res.send({ status: "error", message: "User Not found." });
       }
       else {
+        let price = 0;
+        products.map(product=>{
+          price = price + (product.quantity * product.price);
+        })
         Order.create({
           userId: userId,
           totalItems: totalItems,
           status: status,
           shippingAddress: shippingAddress,
-          totalPrice: totalPrice,
+          totalPrice:price,
           description: description,
         }).then((data) => {
 
-            addProductsInOrderProductTable(products,res,data.dataValues.id).then((data)=>{
+            addProductsInOrderProductTable(products,res,data.dataValues.id,userId).then((data)=>{
                 // res.send({ status: "ok", data: data })
-          res.send({ status: "ok", data: "Order was Successfull" });
+                res.send({ status: "ok", data: "Order was Successfull" });
 
 
             })
@@ -54,7 +60,7 @@ exports.createOrder = (req, res) => {
 };
 
 
-async function addProductsInOrderProductTable(products,res,orderId){
+async function addProductsInOrderProductTable(products,res,orderId,userId){
     try{
         console.log("PRODUCTS", products)
       if(products.length == 0){
@@ -68,6 +74,23 @@ async function addProductsInOrderProductTable(products,res,orderId){
           quantity: product.quantity,
           price: product.price
         }).then((data) => {
+          
+        // update in task table 
+        UserCart.update({ status:"BOUGHT",},{
+           
+          where:{
+            userId:userId
+          }
+      
+        }).then((data)=>{
+          // res.send({ status: "ok", data: "Order was Successfull" });
+          return {status:'ok',data:'order was succcessfull'}
+
+        })
+
+   
+
+  
           res.send({ status: "ok", data: "Order was Successfull" });
         //   return "ok";
         }).catch(err => {
@@ -98,11 +121,13 @@ exports.getOrderItems = (req, res) => {
         return res.status(404).send({ status: "error", message: "User Not found." });
       }
       else
-
+      // where: {
+      //   userId: req.body.userId
+      // }
         Order.findAll({
-          where: {
-            userId: req.body.userId
-          }
+        where:{
+          userId:req.body.userId || null
+        }
         }).then((data) => {
           // console.log("this is got in data",data);
           res.send({ status: "ok", data: data });
