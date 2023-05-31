@@ -46,7 +46,7 @@ rootRoute(app);
 // {force:true}
 db.sequelize.sync().then(()=>{
     console.log("Drop and Resync Db");
-    // initial(); // creates 3 rows in database
+    initial(); // creates 3 rows in database
 })
 const initial = ()=> {
     Role.create({

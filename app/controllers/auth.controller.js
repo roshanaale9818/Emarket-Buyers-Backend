@@ -31,11 +31,11 @@ exports.signup = (req, res) => {
     res.send({status:"error",message: isRequiredMessage('Contact, address, firstname, lastName')})
   }
 else{
-  console.log("REQ BODY",req.body)
+  // console.log("REQ BODY",req.body)
 
 
 
-  console.log("gone for database")
+  // console.log("gone for database")
   
   // Save User to Database
   User.create({
@@ -57,7 +57,8 @@ else{
       }
       else {
         // user role = 1 for users
-        user.setRoles([1]).then(() => {
+        user.setRoles([1]).then((data) => {
+          console.log("THIS IS CREATED USER",user);
           res.send({ status: "ok", message: "User was registered successfully!" });
         });
       }
