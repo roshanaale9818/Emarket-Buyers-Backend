@@ -14,4 +14,7 @@ module.exports = function(app){
 
     app.post(apiVersionPrefix+"order/addOrderItems", [authJwt.verifyToken],_controller.createOrder);
 
+    app.post(apiVersionPrefix+"order/getOrderProductItems",
+    [authJwt.verifyToken],_controller.getOrderProductList);
+
 }

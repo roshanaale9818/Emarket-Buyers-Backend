@@ -72,7 +72,8 @@ async function addProductsInOrderProductTable(products,res,orderId,userId){
           productId: product.productId,
           amount: product.amount,
           quantity: product.quantity,
-          price: product.price
+          price: product.price,
+          productName:product.name
         }).then((data) => {
           
         // update in task table 
@@ -142,4 +143,39 @@ exports.getOrderItems = (req, res) => {
       res.status(500).send({ message: err.message });
     });
 };
+
+exports.getOrderProductList = (req, res) => {
+  User.findOne({
+    where: {
+      //userId is required
+      id: req.body.userId || null,
+    }
+  })
+    .then(user => {
+      if (!user) {
+        return res.status(404).send({ status: "error", message: "User Not found." });
+      }
+      else
+      // where: {
+      //   userId: req.body.userId
+      // }
+      OrderProduct.findAll({
+        where:{
+          orderId: String(req.body.orderId) || null
+        }
+        }).then((data) => {
+          // console.log("this is got in data",data);
+          res.send({ status: "ok", data: data });
+        })
+
+
+
+      //   res.send({status:"ok",data:"Successfully created UserCart"})  
+
+    })
+    .catch(err => {
+      res.status(500).send({ message: err.message });
+    });
+};
+
 

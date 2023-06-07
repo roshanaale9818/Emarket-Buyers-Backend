@@ -14,6 +14,11 @@ module.exports = (sequelize, Sequelize) => {
               notNull: { msg: "Product Id is required" },
             },
         },
+        productName: {
+          type: Sequelize.STRING,
+          allowNull: true,
+   
+      },
         amount: {
             type: Sequelize.INTEGER,
             allowNull: false,
